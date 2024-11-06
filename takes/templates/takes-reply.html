@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load my_utils %}
+
+{% block header-left-title %}
+    <h2 class="center-content">Reply</h2>
+{% endblock %}
+
+{% block content %}
+    <main class="center-rows">
+        <h2>{% trans 'Reply to' %}:</h2>
+
+        {% include 'takes-take.html' with take=reply_to_take %}
+        <br />
+        <form class="center-rows" method="post" action="{% url 'takes:reply' reply_to_take.id %}">
+            {% csrf_token %}
+
+            <label for="content">{% trans 'Take' %}:</label>
+            {{ reply_form.content }}
+            {% for error in reply_form.errors|extract_error_from_dict:'content' %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <label for="is_public">{% trans 'Publicly visible' %}:</label>
+            {{ reply_form.is_public }}
+            {% for error in reply_form.errors|extract_error_from_dict:'is_public' %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <button type="submit">{% trans 'Post your Take' %}</button>
+        </form>
+    </main>
+{% endblock %}

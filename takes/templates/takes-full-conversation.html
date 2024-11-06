@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="center-rows">
+        <ul> <!-- initial ul-li is needed to get a proper stacking when centering -->
+            <li>
+                {% include 'takes-fully-rendered.html' with take=take root_take_author=take.author %}
+            </li>
+        </ul>
+    </main>
+{% endblock %}

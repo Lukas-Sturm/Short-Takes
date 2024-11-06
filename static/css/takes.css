@@ -1,0 +1,76 @@
+.take {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    padding: 10px;
+
+    width: 500px;
+
+    border-radius: 10px;
+
+    background: gainsboro;
+}
+
+.private-take {
+    background-color: lightblue;
+}
+
+.take-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-weight: bold;
+}
+
+.take-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.take-content {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+
+    white-space: pre-line;
+}
+
+.take-actions {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-rows: auto;
+
+}
+
+.take-reply {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: smaller;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.take-liked {
+    color: green;
+}
+
+.take-disliked {
+    color: tomato;
+}
+
+.take-date {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+
+    color: dimgray;
+}

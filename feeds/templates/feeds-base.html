@@ -1,0 +1,50 @@
+{% load i18n %}
+
+<div class="center-rows">
+    {% block headline %}
+        <h2>{% trans feed_name %}</h2>
+    {% endblock %}
+    
+    {% for take in takes_page.object_list %}
+        {% include 'takes-take.html' with take=take %}
+    {% empty %}
+        {% trans 'No Takes :/' %}
+    {% endfor %}
+    
+    {% if pagination_num_pages > 1 %}
+        <div class="pagination">
+            {% if takes_page.has_previous %}
+                <a href="{{ request.path }}?{{ pagination_parameter }}={{ takes_page.number|add:'-1' }}&{{ url_parameter }}" class="pagination-element"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a href="{{ request.path }}?{{ pagination_parameter }}=1&{{ url_parameter }}" class="pagination-element"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+            {% else %}
+                <a class="pagination-element pagination-disabled"><i class="fa fa-angle-left"></i></a>
+                <a class="pagination-element pagination-disabled"><i class="fa fa-angle-double-left"></i></a>
+            {% endif %}
+    
+            {% if takes_page.number > 2 %}
+                1 ... 
+            {% endif %}
+        
+            {% if takes_page.number > 1 %}
+                <a class="pagination-element">{{ takes_page.previous_page_number }}</a>
+            {% endif %}
+            <a class="pagination-element"><u>{{ takes_page.number }}</u></a>
+            {% if takes_page.has_next %}
+                <a class="pagination-element">{{ takes_page.next_page_number }}</a>
+            {% endif %}
+        
+            {% if takes_page.number < pagination_num_pages|add:'-1' %}
+                ... {{ pagination_num_pages }}
+            {% endif %}
+        
+            {% if takes_page.has_next %}
+                <a href="{{ request.path }}?{{ pagination_parameter }}={{ pagination_num_pages }}&{{ url_parameter }}" class="pagination-element"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                <a href="{{ request.path }}?{{ pagination_parameter }}={{ takes_page.number|add:'1' }}&{{ url_parameter }}" class="pagination-element"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            {% else %}
+                <a class="pagination-element pagination-disabled"><i class="fa fa-angle-double-right"></i></a>
+                <a class="pagination-element pagination-disabled"><i class="fa fa-angle-right"></i></a>
+                
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

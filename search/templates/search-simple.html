@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <!-- need to use a form to get search input, but will redirect to sharable link with search in url -->
+    <form class="center-content" action="{% url 'search:simple' %}" method="post">
+        {% csrf_token %}
+        <label for="search_term">{% trans 'Search' %}:</label>
+
+        <input
+                value="{{ search_term }}"
+                name="search_term" id="search_term"
+                type="search"
+                hx-post="{% url 'search:simple' %}"
+                hx-trigger="input changed delay:500ms, search"
+                hx-target="#search-results"
+                hx-replace-url="true"
+        />
+
+        <button type="submit">{% trans 'search' %}</button>
+    </form>
+
+    <hr />
+
+    <main id="search-results" class="main-split">
+        {% include 'search-simple-results.html' %}
+    </main>
+{% endblock %}

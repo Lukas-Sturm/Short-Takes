@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load my_utils %}
+
+{% block header-left-title %}
+    <h2 class="center-content">New Take</h2>
+{% endblock %}
+
+{% block content %}
+    <main class="">
+        <form class="center-rows" method="post" action="{% url 'takes:create' %}">
+            {% csrf_token %}
+
+            <label for="content">{% trans 'Take' %}:</label>
+            {{ create_form.content }}
+            {% for error in create_form.errors|extract_error_from_dict:'content' %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <label for="is_public">{% trans 'Publicly visible' %}:</label>
+            {{ create_form.is_public }}
+            {% for error in create_form.errors|extract_error_from_dict:'is_public' %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <button type="submit">{% trans 'Post your Take' %}</button>
+        </form>
+    </main>
+{% endblock %}
+

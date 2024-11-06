@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load my_utils %}
+
+{% block header-left-title %}
+    <h4>Register</h4>
+{% endblock %}
+
+{% block content %}
+    <form class="auth-form" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+
+        <label for="username">{% trans 'Username' %}:</label>
+        {{ register_form.username }}
+        {% for error in register_form.errors|extract_error_from_dict:'username' %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="email">{% trans 'Email' %}:</label>
+        {{ register_form.email }}
+        {% for error in register_form.errors|extract_error_from_dict:'email' %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password1">{% trans 'Password' %}:</label>
+        {{ register_form.password1 }}
+        {% for error in register_form.errors|extract_error_from_dict:'password1' %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password2">{% trans 'Password again' %}:</label>
+        {{ register_form.password2 }}
+        {% for error in register_form.errors|extract_error_from_dict:'password2' %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <button type="submit">{% trans 'Register' %}</button>
+        {% for error in register_form.errors|extract_error_from_dict:'__all__' %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+{#        <ul>#}
+{#            {% for error, messages in registration_errors.items %}#}
+{#                <li>#}
+{#                    {{ error }}#}
+{#                    <ul>#}
+{#                    {% for error_text in messages %}#}
+{#                        <li>{{ error_text }}</li>#}
+{#                    {% endfor %}#}
+{#                    </ul>#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+    </form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{{ search_feed }}
+
+<div class="center-rows">
+    <h2>{% trans 'User search results' %}</h2>
+    {% for user in users %}
+        <a class="take-profile a-as-button" href="{% url 'userprofile:public_profile' profile_id=user.id %}">
+            <img class="profile-picture" src="{{ user.userprofile.avatar.url }}" alt="Avatar"/>
+            {{ user.username }}
+        </a>
+    {% empty %}
+        {% trans 'No users found :/' %}
+    {% endfor %}
+</div>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block header-left-title %}
+    <div class="center-rows-left">
+        <h2>Friends</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main class="main-split">
+        <div class="center-rows">
+            <h2>{% trans 'Friend Requests' %}</h2>
+
+            {% for friend_request in friend_requests %}
+                <div class="friend-request">
+                    <a class="friend-request-user a-as-button" href="{% url 'userprofile:public_profile' profile_id=friend_request.from_user.id %}">
+                        <img class="profile-picture" src="{{ friend_request.from_user.userprofile.avatar.url }}" alt="Avatar"/>
+                        {{ friend_request.from_user.username }}
+                    </a>
+                    <div></div>
+                    <div>
+                        <a class="friend-request-button a-as-button" href="{% url 'userprofile:friend_accept' user_id=friend_request.from_user.id %}"><i class="fa fa-user-plus"></i></a>
+                        <a class="friend-request-button a-as-button" href="{% url 'userprofile:friend_reject' user_id=friend_request.from_user.id %}"><i class="fa fa-user-times"></i></a>
+                    </div>
+                </div>
+
+            {% empty %}
+            	{% trans 'Currently no open friend requests' %}
+            {% endfor %}
+
+        </div>
+
+        <div class="center-rows">
+            <h2>{% trans 'Friends' %}</h2>
+            {% for friend in friends %}
+                <div class="friend-request">
+                    <a class="friend-request-user a-as-button" href="{% url 'userprofile:public_profile' profile_id=friend.id %}">
+                        <img class="profile-picture" src="{{ friend.userprofile.avatar.url }}" alt="Avatar"/>
+                        {{ friend.username }}
+                    </a>
+                    <div></div>
+                    <div>
+                        <a class="friend-request-button a-as-button" href="{% url 'userprofile:friend_remove' user_id=friend.id %}"><i class="fa fa-user-times"></i></a>
+                    </div>
+                </div>
+
+            {% empty %}
+            	{% trans 'Currently no open friend requests' %}
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

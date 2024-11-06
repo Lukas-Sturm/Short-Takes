@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load my_utils %}
+
+{% block header-left-title %}
+    <div class="center-rows-left">
+        <h2>{{ user.username }}</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main>
+        {% trans 'Bio' %}:
+        <p class="profile-bio">{{ user.userprofile.bio }}</p>
+
+        <hr/>
+
+        {{ takes_list }}
+
+        {% if not user.id == request.user.id %}
+           {% users_are_friends request.user user as are_friends %}
+            {% if not are_friends %}
+                <div class="add-as-friend">
+                    <a class="a-as-button" href="{% url 'userprofile:friend_add' user.id %}"><i class="fa fa-user-plus"></i></a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </main>
+{% endblock %}

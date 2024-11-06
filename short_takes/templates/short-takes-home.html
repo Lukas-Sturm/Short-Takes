@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+    <div class="main-split">
+        {{ public_feed }}
+
+        {{ private_feed }}
+    </div>
+
+    <div class="add-take">
+        <a class="a-as-button" href="{% url 'takes:create' %}"><i class="fa fa-plus-circle"></i></a>
+    </div>
+{% endblock %}

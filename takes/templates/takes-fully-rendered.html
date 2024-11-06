@@ -1,0 +1,11 @@
+{% load my_utils %}
+
+{% include 'takes-take.html' with take=take %}
+<ul>
+    {% load_allowed_replies take request.user root_take_author as replies %}
+    {% for take_reply in replies %}
+        <li>
+             {% include 'takes-fully-rendered.html' with take=take_reply root_take_author=root_take_author %}
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% if request.user.is_authenticated %}
+<div class="menu-container" style="grid-area: action">
+    <form id="logout-form" action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button class="menu-icon" type="submit"><i class="fa fa-sign-out"></i></button>
+    </form>
+    <a class="menu-icon" href="{% url 'userprofile:edit' %}"><i class="fa fa-user"></i></a>
+    <a class="menu-icon" href="{% url 'userprofile:friends' %}"><i class="fa fa-group"></i></a>
+    <a class="menu-icon" href="{% url 'search:simple' %}"><i class="fa fa-search"></i></a>
+</div>
+{% endif %}

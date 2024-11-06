@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load my_utils %}
+
+{% block content %}
+
+    {% if next %}
+        <p>{% trans 'You have to login first' %}</p>
+    {% endif %}
+
+    <form class="center-rows" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <label for="username">{% trans 'Username' %}</label><input type="text" name="username" id="username">
+        {% if 'username' in form.errors %}
+            {% for error in form.errors.username %}
+            	<p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
+
+        <label for="password">{% trans 'Password' %}</label><input type="password" name="password" id="password">
+        {% if 'password' in form.errors %}
+            {% for error in form.errors.password %}
+            	<p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <button type="submit">{% trans 'Login' %}</button>
+        {% if '__all__' in form.errors %}
+            {% for error in form.errors|dict_key:"__all__" %}
+            	<p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </form>
+
+{% endblock %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,9 @@ ALLOWED_HOSTS = []
 
 INTERNAL_IPS = ['127.0.0.1']
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,10 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'feeds.apps.FeedsConfig',
+    'short_takes.apps.ShortTakesConfig',
     'takes.apps.TakesConfig',
+    'search.apps.SearchConfig',
+    'userprofile.apps.UserprofileConfig',
     'debug_toolbar',
-    'django_htmx'
+    'django_htmx',
+    'friendship',
+    # 'livereload'
 ]
 
 MIDDLEWARE = [
@@ -53,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django_htmx.middleware.HtmxMiddleware'
+    'django_htmx.middleware.HtmxMiddleware',
+    # 'livereload.middleware.LiveReloadScript'
 ]
 
 ROOT_URLCONF = 'short_takes.urls'
@@ -122,11 +133,20 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('de', _('German')),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+PROFILE_IMAGES_PATH = os.path.join(MEDIA_ROOT, 'profile_images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

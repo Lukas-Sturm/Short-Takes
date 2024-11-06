@@ -1,0 +1,47 @@
+{% load my_utils %}
+{% load i18n %}
+
+<article class="take {% if not take.is_public %}private-take{% endif %}">
+    <header class="take-header">
+        <a class="take-profile a-as-button" href="{% url 'userprofile:public_profile' profile_id=take.author.id %}">
+            <img class="profile-picture" src="{{ take.author.userprofile.avatar.url }}" alt="Avatar"/>
+            {{ take.author.username }}
+        </a>
+        {% if request.user.id == take.author.id %}
+            <form method="post" action="{% url 'takes:delete' take.id %}?next={{ request.path|urlencode }}">
+                {% csrf_token %}
+                <button class="stealth-button" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> {% trans 'Delete' %}</button>
+            </form>
+        {% endif %}
+    </header>
+
+    {% if take.reply_to %}
+        <div class="take-reply">
+            Replied:
+            <a class="a-as-button" href="{% url 'takes:take' take.reply_to.id %}">{% trans 'view original' %}</a>
+        </div>
+    {% endif %}
+
+    <p class="take-content">{{ take.content }}</p>
+
+    <p class="take-date">
+        {{ take.date }}
+    </p>
+
+    <div class="take-actions">
+        <div>
+            {% if request.user.is_authenticated %}
+                {% user_liked request.user take as liked %}
+                {% user_disliked request.user take as disliked %}
+            {% endif %}
+
+            <a class="a-as-button {% if liked %}take-liked{% endif %}" href="{% url 'takes:up_vote' take.id %}?next={{ request.path|urlencode }}"><i class="fa fa-thumbs-up"></i> {{ take.liked_by.count }}</a>
+            <a class="a-as-button {% if disliked %}take-disliked{% endif %}" href="{% url 'takes:down_vote' take.id %}?next={{ request.path|urlencode }}"><i class="fa fa-thumbs-down"></i> {{ take.disliked_by.count }}</a>
+        </div>
+        <div>
+            <a class="a-as-button" href="{% url 'takes:take' take.id %}"><i class="fa fa-envelope"></i> {{ take.reply_count }} {% trans 'Full conversation' %}</a>
+        </div>
+        <div></div>
+        <a class="a-as-button" href="{% url 'takes:reply' take.id %}"><i class="fa fa-reply"></i> {% trans 'Reply' %}</a>
+    </div>
+</article>

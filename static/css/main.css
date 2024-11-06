@@ -1,0 +1,167 @@
+html {
+    background: white;
+    font-family: Poppins, 'Times New Roman', Times, serif;
+}
+
+.error {
+    margin: 0;
+    color: tomato;
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pagination .pagination-element {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.pagination .pagination-disabled {
+    color: darkgray;
+}
+
+.header-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px;
+    grid-template-areas: "left-title center-title action"
+}
+
+.main-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "left right";
+
+    min-height: 100%;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-rows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.a-as-button {
+    color: unset;
+    text-decoration: none;
+}
+
+.add-as-friend {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+
+    background: slategray;
+    border-radius: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: xxx-large;
+}
+
+.center-rows-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.page-title {
+    margin: 0;
+    padding: 0;
+
+    font-weight: normal;
+    font-size: xx-large;
+    font-family: 'Geoplace SC', 'Times New Roman', Times, serif;
+}
+
+a.page-title {
+    text-decoration: none;
+    color: unset;
+}
+
+.join-now {
+    --fontSizeStart: 1.0;
+    --fontSizeEnd: 1.2;
+    animation: breath 1s alternate infinite;
+}
+
+.add-take {
+    position: fixed;
+    left: calc(50% - 30px);
+    bottom: 0;
+
+    font-size: 75px;
+}
+
+.messages {
+    list-style-type: none;
+    font-size: large;
+    font-weight: bold;
+}
+
+.message-success {
+    color: green;
+}
+
+.profile-bio {
+    white-space: pre-line;
+}
+
+button {
+    font-weight: normal;
+    font-size: larger;
+
+    border: none;
+    border-radius: 5px;
+    background-color: darkgray;
+    padding: 5px 10px 5px 10px;
+}
+
+button:hover {
+    background-color: gainsboro;
+}
+
+.stealth-button {
+    background-color: transparent;
+    font-size: medium;
+}
+
+.stealth-button:hover {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+@keyframes breath {
+    from {
+        transform: scale(var(--fontSizeStart));
+    }
+
+    to {
+        transform: scale(var(--fontSizeEnd));
+    }
+}
